@@ -23,7 +23,7 @@ class KaggleAutomation:
         return hrefs
 
     def fetch_scores(self, html_file_path, sleep=2):
-        service = Service(executable_path=f"{os.getcwd()}/chromedriver")
+        service = Service(executable_path=f"{os.path.dirname(__file__)}/chromedriver")
         driver = webdriver.Chrome(service=service)
         urls = self.get_urls(html_file_path)
         self.versions = []
