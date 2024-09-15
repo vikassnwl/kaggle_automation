@@ -4,6 +4,7 @@ from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 import time
 from tqdm import tqdm
+import os
 
 
 class KaggleAutomation:
@@ -22,7 +23,7 @@ class KaggleAutomation:
         return hrefs
 
     def fetch_scores(self, html_file_path, sleep=2):
-        service = Service(executable_path="./chromedriver")
+        service = Service(executable_path=f"{os.getcwd()}/chromedriver")
         driver = webdriver.Chrome(service=service)
         urls = self.get_urls(html_file_path)
         self.versions = []
