@@ -34,8 +34,10 @@ class KaggleAutomation:
             html_content = driver.page_source
             soup = BeautifulSoup(html_content, 'lxml')
             try:
-                p_content = soup.findAll('p', class_='sc-dENhDJ sc-lopgLL fTZFV hqBFNM')[1].text
-                span_content = soup.findAll('span', class_='sc-gLXSEc kLwwHW')[-1].text
+                # p_content = soup.findAll('p', class_='sc-dENhDJ sc-lopgLL fTZFV hqBFNM')[1].text
+                p_content = soup.select("p.sc-dENhDJ.fTZFV")[-1].text.strip()
+                assert(p_content[-1]!="s")  # invalid: 298.1s  valid: 74430.75684
+                span_content = soup.findAll('span', class_='sc-gLXSEc kLwwHW')[-1].text.strip()
             except Exception as e:
                 continue
             self.versions.append(span_content)
