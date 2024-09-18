@@ -4,7 +4,7 @@ from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 import time
 from tqdm import tqdm
-import os
+import os, re
 
 
 class KaggleAutomation:
@@ -36,7 +36,9 @@ class KaggleAutomation:
             try:
                 # p_content = soup.findAll('p', class_='sc-dENhDJ sc-lopgLL fTZFV hqBFNM')[1].text
                 p_content = soup.select("p.sc-dENhDJ.fTZFV")[-1].text.strip()
-                assert(p_content[-1]!="s")  # invalid: 298.1s  valid: 74430.75684
+                # assert(p_content[-1]!="s")  # invalid: 298.1s  valid: 74430.75684
+                pattern = r"^\d+(\.\d+)?$"
+                assert(re.match(pattern, p_content))  # {"invalid": ["298.1s", "35853.8s - GPU T4 x2"], "valid": ["74430.75684", "74430"]}
                 span_content = soup.findAll('span', class_='sc-gLXSEc kLwwHW')[-1].text.strip()
             except Exception as e:
                 continue
